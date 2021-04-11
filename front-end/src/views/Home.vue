@@ -2,11 +2,14 @@
   <div class="home">
     <h1>Home</h1>
     <p>{{message}}</p>
+    <v-btn
+      @click="logout()">
+      Logout
+    </v-btn>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
   name: 'Home',
@@ -22,6 +25,12 @@ export default {
       console.error(error)
       this.message = `Error loading data`
     })
+  },
+  methods: {
+    logout(){
+      this.$cookies.remove('jwt')
+      location.reload()
+    }
   }
 }
 </script>
