@@ -13,6 +13,6 @@ const auth_options = { url: process.env.IDENTIFICATION_URL || 'http://user-manag
 app.use(cors())
 app.use(auth(auth_options))
 
-app.get('/', (req, res) => res.send(`This message comes from the back-end and if you can see it, it means you are logged in`) )
+app.get('/data', (req, res) => res.send(`Sensitive data`) )
 
 app.listen(port, () => console.log(`Express Listening on :${port}`) )

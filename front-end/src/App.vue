@@ -1,48 +1,36 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark>
-
-      <v-img
-        alt="Vuetify Logo"
-        class="shrink mr-2"
-        contain
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-        transition="scale-transition"
-        width="40"/>
-
-      <v-app-bar-title>Example application</v-app-bar-title>
-
-    </v-app-bar>
-
-    <v-main>
-      <v-container
-        fluid>
-        <AuthenticationWall
-          :options="options">
-          <router-view/>
-        </AuthenticationWall>
-      </v-container>
-    </v-main>
-
-  </v-app>
+  <AuthenticationWall
+    :options="wall_options"
+    @user="get_data()">
+    <div>
+      <h1>My app</h1>
+      <p>{{message}}</p>
+    </div>
+  </AuthenticationWall>
 </template>
 
 <script>
-import AuthenticationWall from '@moreillon/vue_authentication_wall_vuetify'
+import AuthenticationWall from '@moreillon/vue_authentication_wall'
+
 export default {
   name: 'App',
-  components: {
-    AuthenticationWall
-  },
+  components: { AuthenticationWall },
   data: () => ({
-    options: {
+    message: 'Loading...',
+    wall_options: {
       login_url: `${process.env.VUE_APP_USER_MANAGER_API_URL}/auth/login`,
       identification_url: `${process.env.VUE_APP_USER_MANAGER_API_URL}/users/self`,
     }
   }),
-
+  mounted(){
+    //this.get_data()
+  },
+  methods: {
+    get_data(){
+      this.axios.get(`${process.env.VUE_APP_EXAMPLE_API_URL}/data`)
+      .then( ({data}) => { this.message = data } )
+      .catch( error => { this.message = error } )
+    }
+  },
 }
 </script>

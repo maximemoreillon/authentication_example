@@ -12,7 +12,7 @@ services:
       MONGODB_URL: mongodb://mongo
       JWT_SECRET: keyboard_cat
     ports:
-      - "7070:80"
+      - "7071:80"
 
   user-manager-front:
     image: moreillon/user-manager-mongoose-front
@@ -27,4 +27,4 @@ services:
       PROXY_API: http://user-manager-api
       PROXY_ROOT: http://user-manager-front
     ports:
-      - "8080:80"
+      - "8081:80"
